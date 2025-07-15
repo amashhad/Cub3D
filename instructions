@@ -1,0 +1,98 @@
+Parsing:
+
+Map extension: .cub
+	Wall textures (NO, SO, WE, EA)
+	Floor & ceiling RGB colors (F, C)
+	2D map with walls (1), empty spaces (0), and player spawn (N, S, E, W)
+
+Perform raycasting to simulate 3D view
+
+Handle:
+
+W, A, S, D for movement
+
+←, → for rotation
+
+ESC key and red cross to quit
+
+Ensure map is fully enclosed by walls
+
+Wall collision
+
+Minimap
+
+Doors that open/close
+
+Animated sprites
+
+Mouse movement
+
+Phase 1: Setup & Parsing (Map + Config)
+
+1- Create base structure (Makefile, main.c, libft/)
+	Create map parser module (parser.c/h)
+2- Parse .cub file elements (NO, SO, WE, EA, F, C)
+	Parse 2D map grid, detect player start
+3- Unit test file parsing
+	Map validation (walls enclosed, one player)
+4- Build structs for game data
+	Write error handling functions
+
+Phase 2: Raycasting Core
+
+Implement basic raycasting (DDA, step sizes)
+	Build player movement/rotation logic
+Draw vertical strips for walls
+	Setup key input hooks (WASD, arrows)
+Calculate FOV and projection distance
+	Integrate MinilibX for window creation
+
+!!!A basic 3D scene should be rendered and player can move/rotate!!!.
+
+Phase 3: Texture & Color Rendering
+
+Load wall textures (xpm/png)
+	Implement floor & ceiling color fill
+Apply correct texture depending on ray side hit
+	Ensure textures scale properly with ray height
+Handle ESC key & window close
+
+Phase 4: Final Phase
+
+Run edge-case tests (bad map, invalid args)
+Test memory leaks & valgrind
+Implement minimap
+Implement doors
+Add mouse movement
+Add sprite animation
+Add minigame(ask abdullah)
+Implement music w/fork (FFmpeg, ffplay)
+
+
+File Structure:
+
+cub3d/
+├── src/
+│   ├── main.c
+│   ├── raycast.c
+│   ├── render.c
+│   ├── input.c
+│   ├── map_parser.c
+│   ├── utils.c
+│   └── ...
+├── include/
+│   ├── cub3d.h
+│   ├── map.h
+│   └── ...
+├── libft/
+│   └── ...
+├── textures/
+│   └── *.xpm
+├── maps/
+│   └── example.cub
+├── Makefile
+├── maps/
+│   └── example.cub
+│
+└── 42_minilibx
+
