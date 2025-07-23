@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_fun.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 16:35:47 by amashhad          #+#    #+#             */
+/*   Updated: 2025/07/21 18:49:04 by amashhad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <mlx.h>
 /*
 	mouse tracker, tracks mouse inside the window
@@ -17,6 +29,7 @@ void	mouse_tracker(void *mlx, void *window, int x, int y)
 	-used in mlx_mouse_hook();
 	-requires mouse_tracker;
 */
+
 int	mouse_exit_button(int button, int x, int y, void *param)
 {
 	//example struct
@@ -34,7 +47,9 @@ int	mouse_exit_button(int button, int x, int y, void *param)
 	t_coord *coord;
 	//example struct
 
-	if (button == 1 && (coord->x >= coord->start_x && coord->x <= coord->end_x) && (coord->y >= coord->start_y && coord->y <= coord->end_y))
+	if (button == 1 && (coord->x >= coord->start_x &&
+			coord->x <= coord->end_x) && (coord->y >= coord->start_y
+				&& coord->y <= coord->end_y))
 		exit(0);
 	return (0);
 }
