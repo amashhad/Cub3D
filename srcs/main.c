@@ -6,88 +6,101 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:35:38 by amashhad          #+#    #+#             */
-/*   Updated: 2025/07/22 18:43:43 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/07/27 22:32:47 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+#include <X11/keysym.h>
 
-int	exit_fnc(void *param)
+int	exit_func(int button, t_data *data)
 {
-	(void) param;
-	exit(0);
+	if (button == XK_Escape)
+		mlx_loop_end(data->mlx);
+	if (button == XK_c)
+		mlx_clear_window(data->mlx, data->window);
+	return (0);
+}
+int	is_pressed(int button)
+{
+	if (button == 1)
+		return (1);
 	return (0);
 }
 
-void	mouse_tracker(void *mlx, void *window, int x, int y)
+int		mouse_release(int button, int x, int y, t_data *data)
 {
-	mlx_mouse_get_pos(mlx, window, &x, &y);
-	printf("x: %dy: %d\n", x, y);
-}
-
-int	mouse_exit_button(int button, int x, int y, void *param)
-{
-	t_coord *coord = (t_coord *)param;
-
-	if (button == 1 && coord && (x >= coord->start_x &&
-			x <= coord->end_x) && (y >= coord->start_y
-				&& y <= coord->end_y))
-		exit(0);
+	if (button == 1)
+	{
+		data->is_mouse_down = 0;
+		printf("Mouse released at (%d, %d)\n", x, y);
+	}
 	return (0);
 }
 
-void	start_window(void *mlx, void *window)
+int	mouse_press(int button, int x, int y, t_data *data)
 {
-	int		img_width = 42;
-	int		img_height = 42;
-	void	*img;
-	img = mlx_xpm_file_to_image(mlx, "assets/test_start.xpm", &img_width, &img_height);
-	mlx_put_image_to_window(mlx, window, img, img_width, img_height);
+	if (button == 1) // Left click
+	{
+		data->is_mouse_down = 1;
+		printf("Mouse pressed at (%d, %d)\n", x, y);
+	}
+	return (0);
 }
 
-int	loop_kill(void *param)
+int	mouse_move(int x, int y, t_data *data)
 {
-	(void)param;
-	exit(0);
-	return 0;
+	int i;
+
+	i = -1;
+	if (data->is_mouse_down)
+	{
+		while (i < data->font_size)
+		{
+			mlx_string_put(data->mlx, data->window, x + i, y - i, 0xD4AF37, "0");
+			i++;
+		}
+		i = -1;
+			printf("Mouse move while pressed at (%d, %d)\n", x, y);
+	}
+	return (0);
 }
+int	font_resize(int button, t_data *data)
+{
+	if (button == XK_a)
+	{
+		data->font_size++;
+	}
+	else if (button == XK_b && data->font_size > 0)
+			data->font_size--;
+	printf("Font size is now %d\n", data->font_size);
+	return (0);
+}
+
 int	main(void)
 {
-	t_data	*data = malloc(sizeof(t_data));
+	t_data *data;
+
+	data = calloc(sizeof(t_data), 1);
 	if (!data)
 		return (1);
-	memset(data, 0, sizeof(t_data));
-
-	// Initialize coordinate structure for exit button area
-	t_coord *exit_coords = malloc(sizeof(t_coord));
-	if (!exit_coords)
-	{
-		free(data);
-		return (1);
-	}
-	// Set exit button area (adjust these values as needed)
-	exit_coords->start_x = 42;
-	exit_coords->start_y = 42;
-	exit_coords->end_x = 84;
-	exit_coords->end_y = 84;
-
 	data->mlx = mlx_init();
 	if (!data->mlx)
 	{
-		free(exit_coords);
 		free(data);
 		return (1);
 	}
-	data->window = mlx_new_window(data->mlx, 1280, 720, "Zanqa Game");
+	data->window = mlx_new_window(data->mlx, 1280, 1080, "Cub3D");
 	if (!data->window)
 	{
-		free(exit_coords);
 		free(data);
 		return (1);
 	}
-	start_window(data->mlx, data->window);
-	//mlx_loop_hook(data->mlx, loop_kill, data);
-	mlx_mouse_hook(data->window, mouse_exit_button, exit_coords);
+	mlx_hook(data->window, 2, 1L << 0, exit_func, data);
+	mlx_key_hook(data->window, font_resize, data);
+	mlx_mouse_hook(data->window, mouse_press, data);
+	mlx_hook(data->window, 5, 1L << 3, mouse_release, data);
+	mlx_hook(data->window, 6, 1L << 6, mouse_move, data);
 	mlx_loop(data->mlx);
 	return (0);
 }
