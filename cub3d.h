@@ -18,7 +18,9 @@ typedef struct s_map{
 }	t_map;
 
 typedef struct s_screen{
-	;
+	void	*canva;
+	int		width;
+	int		height;
 }	t_screen;
 
 /*
@@ -33,4 +35,8 @@ typedef struct s_data{
 	t_screen	*screen;
 }	t_data;
 
+int	font_resize(int button, t_data *data);
+int	mouse_move(int x, int y, t_data *data);
+int	mouse_press(int button, int x, int y, t_data *data);
+int	mouse_release(int button, int x, int y, t_data *data);
 # endif
