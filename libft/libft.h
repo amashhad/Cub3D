@@ -6,7 +6,7 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 01:57:01 by amashhad          #+#    #+#             */
-/*   Updated: 2025/06/20 09:16:41 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/09/05 04:15:10 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		ft_printarr(char **arr);
 int		ft_addprintarr(char *print, char **arr);
 int		ft_arr_srch(char *str, char **arr);
 int		ft_arrcmp(char **arr1, char **arr2, int mode);
+int		dynamic_free(const char *frmt, ...);
 
 //chars
 char	*ft_strchr(const char *s, int c);

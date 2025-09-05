@@ -6,13 +6,13 @@
 /*   By: amashhad <amashhad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 05:44:10 by amashhad          #+#    #+#             */
-/*   Updated: 2025/01/17 17:55:13 by amashhad         ###   ########.fr       */
+/*   Updated: 2025/09/05 04:35:19 by amashhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_terminal(va_list args, char func)
+int	ft_terminal(va_list args, char func)
 {
 	int	count;
 

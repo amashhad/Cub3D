@@ -38,7 +38,7 @@ SRC	=	ft_atoi ft_bzero			\
 		ft_srchrarr	ft_strcmp	ft_arr_srch	\
 		ft_locate_str rhcrts	ft_arrcmp	\
 		ft_remove_str	ft_fetcharr	cpynarr	\
-		ft_strstr ft_del_arr \
+		ft_strstr ft_del_arr dynamic_free\
 
 OBJS	= $(addsuffix .o, $(SRC))
 OBJ_DIR	= obj
