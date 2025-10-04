@@ -2,7 +2,10 @@ NAME	=	cub3d
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -g
 RM		=	rm -rf
-SRC		=	main allocations player mlx_utils algorithm movement
+SRC		=	main allocations player mlx_utils movement fill_pictures walls wall_imgs \
+			char_and_second_skip check_form check_form_2 color_and_first_skip main_utils\
+			init_and_error main_map player_cols read_save_search uitil height algo_param\
+
 SRC_DIR	=	srcs
 SRCS	=	$(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRC)))
 OBJ_DIR	=	obj
